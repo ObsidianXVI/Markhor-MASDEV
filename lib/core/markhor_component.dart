@@ -1,7 +1,7 @@
 part of markhor;
 
 abstract class MarkhorComponent {
-  final Environment env;
+  final Environment _env;
 
-  MarkhorComponent(this.env);
+  MarkhorComponent(this._env);
 }

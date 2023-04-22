@@ -6,6 +6,7 @@ abstract class Environment {
   final ActionSpace actionSpace;
   final ParameterSpace parameterSpace;
   final StateSpace stateSpace;
+  ResourceManager get resourceManager => ResourceManager(this);
 
   Environment({
     required this.actionSpace,
@@ -14,4 +15,6 @@ abstract class Environment {
     required this.resourceConfigs,
     required this.networkConfigs,
   });
+
+  GlobalState? get globalState;
 }

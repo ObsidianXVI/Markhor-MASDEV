@@ -26,16 +26,16 @@ class NetworkSimulatorClient extends SimulatedComponent {
 
   Future<NSHttpClientRequest> getUrl(Uri url) async {
     HttpClientRequest req = await httpClient.getUrl(url);
-    if (env.networkConfigs != null) {
-      if (env.networkConfigs!.requestTriggers.containsKey(url)) {
-        await (env.networkConfigs!.requestTriggers[url]!.call(url, req));
-      } else if (env.networkConfigs!.requestInterceptors.containsKey(url)) {
-        req = await (env.networkConfigs!.requestInterceptors[url]!
+    if (_env.networkConfigs != null) {
+      if (_env.networkConfigs!.requestTriggers.containsKey(url)) {
+        await (_env.networkConfigs!.requestTriggers[url]!.call(url, req));
+      } else if (_env.networkConfigs!.requestInterceptors.containsKey(url)) {
+        req = await (_env.networkConfigs!.requestInterceptors[url]!
             .call(url, req));
       }
     }
 
-    return NSHttpClientRequest._(req, networkConfigs: env.networkConfigs);
+    return NSHttpClientRequest._(req, networkConfigs: _env.networkConfigs);
   }
 }
 
