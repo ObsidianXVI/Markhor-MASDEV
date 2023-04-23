@@ -20,9 +20,9 @@ class ResourceManager extends Manager {
   int networkIngressTokens;
   int networkEgressTokens;
 
-  ResourceManager(super.env)
-      : memoryTokens = env.resourceConfigs?.memoryTokens ?? 0,
-        processingTokens = env.resourceConfigs?.processingTokens ?? 0,
-        networkIngressTokens = env.resourceConfigs?.networkIngressTokens ?? 0,
-        networkEgressTokens = env.resourceConfigs?.networkEgressTokens ?? 0;
+  ResourceManager(ResourceConfigs resourceConfigs)
+      : memoryTokens = resourceConfigs.memoryTokens ?? 0,
+        processingTokens = resourceConfigs.processingTokens ?? 0,
+        networkIngressTokens = resourceConfigs.networkIngressTokens ?? 0,
+        networkEgressTokens = resourceConfigs.networkEgressTokens ?? 0;
 }

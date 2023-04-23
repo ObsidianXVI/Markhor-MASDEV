@@ -7,5 +7,6 @@ abstract class DevelopmentEnv extends Environment {
     required super.stateSpace,
     super.networkConfigs,
     super.resourceConfigs,
+    super.resourceManager,
   });
 }

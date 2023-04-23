@@ -15,6 +15,7 @@ Future<void> createProject(String name) async {
   final File rootFile = await File('$rootPath/mkproj.dart').create();
   final String envName = "${name.capitalize()}Environment";
   final String resourceManName = "${name.capitalize()}ResourceManager";
+  final String resourceConfigsName = "${name.capitalize()}ResourceConfigs";
   final String globalStateName = "${name.capitalize()}GlobalState";
   final String stateName = "${name.capitalize()}State";
   final String libName = "${name}_mkproj";
@@ -34,6 +35,7 @@ part './environment/states/global_states.dart';
 part './environment/params/param_sets.dart';
 part './resources/data_cells/data_cells.dart';
 part './resources/resource_manager/resource_manager.dart';
+part './resources/resource_manager/resource_configs.dart';
 """);
 
   final File envFile = await File("$rootPath/environment/environment.dart")
@@ -97,6 +99,22 @@ $fileHeader
 
 class $resourceManName extends ResourceManager {
   $resourceManName($envName env) : super(env);
+}
+""");
+
+  final File resourceConfigsFile =
+      await File("$rootPath/resources/resource_configs/resource_configs.dart");
+  resourceConfigsFile.writeAsString("""
+$fileHeader
+
+class $resourceConfigsName extends ResourceConfigs {
+
+  $resourceConfigsName({
+    super.memoryTokens,
+    super.networkEgressTokens,
+    super.networkIngressTokens,
+    super.processingTokens,
+  });
 }
 """);
   /**
