@@ -83,10 +83,7 @@ class $globalStateName extends GlobalState {
   $globalStateName();
 }
 """);
-  final File paramSetsFile =
-      await File("$rootPath/environment/params/param_sets.dart")
-          .create(recursive: true);
-  paramSetsFile.writeAsString(fileHeader);
+
   final File dataCellsFile =
       await File("$rootPath/resources/data_cells/data_cells.dart")
           .create(recursive: true);

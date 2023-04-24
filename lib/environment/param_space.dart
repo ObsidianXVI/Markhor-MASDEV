@@ -1,15 +1,9 @@
 part of markhor;
 
-class ParameterSpace {
-  final List<ParamSet> paramSets;
+class ParamSpace {
   final List<ArgSet> argSets;
 
-  ParameterSpace({required this.paramSets, required this.argSets});
+  ParamSpace({required this.argSets});
 }
 
-class ParamSet<A extends Action> {
-  ParamSet();
-  const ParamSet.none();
-}
-
-abstract class ArgSet<T extends ParamSet> {}
+abstract class ArgSet<T extends Action> {}

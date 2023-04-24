@@ -4,12 +4,14 @@ part of markhor;
 /// [SimulatedComponent]'s configuration at runtime.
 abstract class SimulatorController<T extends SimulatedComponent>
     extends MarkhorComponent {
-  SimulatorController(super.env);
+  final Environment _env;
+  SimulatorController(this._env);
 }
 
 /// A [SimulatedComponent] represents a specific class that is being simulated.
 abstract class SimulatedComponent extends MarkhorComponent {
-  SimulatedComponent(super.env);
+  final Environment _env;
+  SimulatedComponent(this._env);
 }
 
 /* String scope() {

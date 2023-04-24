@@ -7,15 +7,13 @@ class ActionSpace {
 }
 
 abstract class Action<T> {
-  final ParamSet<Action<T>> paramSet;
-  final T Function(ArgSet<ParamSet<Action<T>>>) body;
+  final T Function(ArgSet<Action<T>>) body;
 
   Action({
     required this.body,
-    this.paramSet = const ParamSet.none(),
   });
 
-  ActionResult performWith(ArgSet<ParamSet<Action<T>>> argSet) {
+  ActionResult performWith(ArgSet<Action<T>> argSet) {
     body(argSet);
     return ActionResult(reward: 0);
   }
