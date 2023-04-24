@@ -7,6 +7,7 @@ abstract class Environment {
   final StateSpace stateSpace;
   final ParamSpace paramSpace;
   final ResourceManager? resourceManager;
+  final Observatory? observatory;
 
   Environment({
     required this.actionSpace,
@@ -15,13 +16,18 @@ abstract class Environment {
     required this.resourceConfigs,
     required this.networkConfigs,
     required this.resourceManager,
+    this.observatory,
   });
+
+  void advance(EnvReport report) {
+    observatory?.addReport(report);
+  }
 
   GlobalState? get globalState;
 
   /// The agent performs an action on the environment, and a reward of type
-  /// [double] is returned. This method is part of the environment and not the
+  /// [double] is obtained. This method is part of the environment and not the
   /// agent because the environment will have logging and profiling tools attached
   /// to observe the actions taken.
-  double performAction<R>(Action<R> action, ArgSet<Action<R>> argSet);
+  ActionResult performAction<R>(Action<R> action, ArgSet<Action<R>> argSet);
 }

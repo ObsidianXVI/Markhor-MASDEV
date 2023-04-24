@@ -12,15 +12,24 @@ abstract class Action<T> {
   Action({
     required this.body,
   });
-
-  ActionResult performWith(ArgSet<Action<T>> argSet) {
-    body(argSet);
-    return ActionResult(reward: 0);
-  }
 }
 
 class ActionResult {
+  final State previouState;
+  final Action actionTaken;
+  final ArgSet argSetUsed;
   final double reward;
+  final State newState;
+  late QVector selectedQVector;
+  late double oldQValueOfSelectedQVect;
+  late double newQValueOfSelectedQVect;
+  late bool isRandom;
 
-  ActionResult({required this.reward});
+  ActionResult({
+    required this.previouState,
+    required this.actionTaken,
+    required this.argSetUsed,
+    required this.reward,
+    required this.newState,
+  });
 }

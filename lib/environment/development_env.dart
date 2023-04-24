@@ -8,5 +8,6 @@ abstract class DevelopmentEnv extends Environment {
     super.networkConfigs,
     super.resourceConfigs,
     super.resourceManager,
+    super.observatory,
   });
 }
