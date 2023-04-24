@@ -8,6 +8,13 @@ part 'core/simulator.dart';
 part 'core/manager.dart';
 part 'core/markhor_component.dart';
 part 'core/encodable.dart';
+part 'core/vector.dart';
+
+part 'ml/rl/q_learning/q_vector.dart';
+part 'ml/run_configs.dart';
+part 'ml/rl/q_learning/ql_run_configs.dart';
+part 'ml/agents/agent.dart';
+part 'ml/agents/ql_agent.dart';
 
 part 'network/network_sim.dart';
 
@@ -23,4 +30,8 @@ part 'environment/state_space.dart';
 part 'environment/state.dart';
 part 'environment/global_state.dart';
 
+part 'observatory/observatory.dart';
 part 'observatory/logger/logpoint.dart';
+part 'observatory/dopesheet/dopesheet.dart';
+part 'observatory/timeline/timeline.dart';
+part 'observatory/env_report.dart';
