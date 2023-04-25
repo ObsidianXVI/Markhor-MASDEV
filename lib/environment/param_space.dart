@@ -6,4 +6,6 @@ class ParamSpace {
   ParamSpace({required this.argSets});
 }
 
-abstract class ArgSet<T extends Action> {}
+abstract class ArgSet {
+  const ArgSet();
+}

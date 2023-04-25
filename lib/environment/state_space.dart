@@ -4,4 +4,6 @@ class StateSpace<T extends State> {
   final List<T> states;
 
   StateSpace({required this.states});
+
+  StateSpace.dynamic() : states = const [];
 }

@@ -32,3 +32,12 @@ class ListCell<E> extends DataCell<List<E>> {
     return data.length;
   }
 }
+
+class DoubleCell extends DataCell<double> {
+  DoubleCell(double value) : super(value);
+
+  @override
+  int size() {
+    return 1;
+  }
+}

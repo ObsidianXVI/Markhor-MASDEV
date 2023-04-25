@@ -7,7 +7,7 @@ class ActionSpace {
 }
 
 abstract class Action<T> {
-  final T Function(ArgSet<Action<T>>) body;
+  final void Function(T) body;
 
   Action({
     required this.body,
