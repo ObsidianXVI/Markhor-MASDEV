@@ -9,4 +9,11 @@ abstract class State extends Vector {
     required super.dimensions,
     required super.values,
   });
+
+  @override
+  String toString() {
+    final InstanceMirror im = reflect(this);
+    final ClassMirror classMirror = im.type;
+    return "${classMirror.reflectedType.toString()}${toVectorStr()}";
+  }
 }

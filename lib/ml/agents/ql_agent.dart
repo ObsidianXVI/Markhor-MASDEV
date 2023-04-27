@@ -26,21 +26,21 @@ abstract class QLAgent extends Agent {
           while (true) {
             actionResult = perform(currentState);
             currentState = actionResult.newState;
+            timeStep++;
+            env.advance(
+              EnvReport(
+                timeStep: timeStep,
+                epochNum: currentEpoch,
+                episodeNum: currentEpisode,
+                actionResult: actionResult,
+              ),
+            );
           }
         } on Exception catch (e) {
           if (e.toString() == 'Initial state is terminal') {
             return;
           }
         }
-        timeStep++;
-        env.advance(
-          EnvReport(
-            timeStep: timeStep,
-            epochNum: currentEpoch,
-            episodeNum: currentEpisode,
-            actionResult: actionResult,
-          ),
-        );
       }
     }
   }

@@ -38,4 +38,6 @@ abstract class Environment {
   /// agent because the environment will have logging and profiling tools attached
   /// to observe the actions taken.
   ActionResult performAction(Action action, ArgSet argSet);
+
+  Map<QVector, double> initialiseQTable();
 }

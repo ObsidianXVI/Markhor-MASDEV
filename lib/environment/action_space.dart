@@ -6,12 +6,22 @@ class ActionSpace {
   ActionSpace({required this.actions});
 }
 
-abstract class Action<T> {
-  final void Function(T) body;
+typedef ActionBody<T extends ArgSet> = void Function(T);
 
+abstract class Action<T extends ArgSet> {
+  final ActionBody<T> body;
   Action({
     required this.body,
   });
+
+  T convertArgSet(ArgSet argSet) => argSet as T;
+
+  @override
+  String toString() {
+    final InstanceMirror im = reflect(this);
+    final ClassMirror classMirror = im.type;
+    return classMirror.reflectedType.toString();
+  }
 }
 
 class ActionResult {

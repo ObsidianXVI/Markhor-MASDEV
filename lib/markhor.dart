@@ -2,6 +2,7 @@ library markhor;
 
 import 'dart:async';
 import 'dart:io';
+import 'dart:mirrors';
 
 part 'core/delay.dart';
 part 'core/simulator.dart';

@@ -4,7 +4,7 @@ class QVector extends Vector {
   final State state;
   final Action action;
 
-  QVector(
+  const QVector(
     this.state,
     this.action, {
     required super.dimensions,
