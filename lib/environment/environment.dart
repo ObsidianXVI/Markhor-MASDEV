@@ -1,6 +1,6 @@
 part of markhor;
 
-abstract class Environment {
+abstract class Environment extends MarkhorComponent {
   final List<Hook> hooks = [];
   final ResourceConfigs? resourceConfigs;
   final NetworkConfigs? networkConfigs;
@@ -10,6 +10,7 @@ abstract class Environment {
   final ResourceManager? resourceManager;
   final Observatory? observatory;
   final DataStore? dataStore;
+  final RunConfigs runConfigs;
 
   Environment({
     required this.actionSpace,
@@ -18,6 +19,7 @@ abstract class Environment {
     required this.resourceConfigs,
     required this.networkConfigs,
     required this.resourceManager,
+    required this.runConfigs,
     this.observatory,
     this.dataStore,
   });

@@ -1,6 +1,7 @@
 library markhor;
 
 import 'dart:async';
+import 'package:collection/collection.dart';
 import 'dart:io';
 import 'dart:mirrors';
 
@@ -10,6 +11,7 @@ part 'core/manager.dart';
 part 'core/markhor_component.dart';
 part 'core/encodable.dart';
 part 'core/vector.dart';
+part 'core/exceptions/terminal_state.dart';
 
 part 'ml/rl/q_learning/q_vector.dart';
 part 'ml/run_configs.dart';

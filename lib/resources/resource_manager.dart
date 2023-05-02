@@ -19,10 +19,19 @@ class ResourceManager extends Manager {
   int processingTokens;
   int networkIngressTokens;
   int networkEgressTokens;
+  final ResourceConfigs resourceConfigs;
 
-  ResourceManager(ResourceConfigs resourceConfigs)
+  ResourceManager(this.resourceConfigs)
       : memoryTokens = resourceConfigs.memoryTokens ?? 0,
         processingTokens = resourceConfigs.processingTokens ?? 0,
         networkIngressTokens = resourceConfigs.networkIngressTokens ?? 0,
         networkEgressTokens = resourceConfigs.networkEgressTokens ?? 0;
+
+  @override
+  void reset() {
+    memoryTokens = resourceConfigs.memoryTokens ?? 0;
+    processingTokens = resourceConfigs.processingTokens ?? 0;
+    networkIngressTokens = resourceConfigs.networkIngressTokens ?? 0;
+    networkEgressTokens = resourceConfigs.networkEgressTokens ?? 0;
+  }
 }

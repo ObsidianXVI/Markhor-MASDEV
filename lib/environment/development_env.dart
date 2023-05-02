@@ -5,6 +5,7 @@ abstract class DevelopmentEnv extends Environment {
     required super.actionSpace,
     required super.stateSpace,
     required super.paramSpace,
+    required super.runConfigs,
     super.networkConfigs,
     super.resourceConfigs,
     super.resourceManager,
