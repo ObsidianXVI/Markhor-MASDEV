@@ -6,8 +6,11 @@ class ParamSpace {
   ParamSpace({required this.argSets});
 }
 
-abstract class ArgSet {
-  const ArgSet();
+abstract class ArgSet extends Vector {
+  const ArgSet({
+    required super.values,
+    required super.dimensions,
+  });
 
   String toInstanceLabel();
 

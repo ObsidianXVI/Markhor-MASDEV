@@ -6,7 +6,20 @@ abstract class Vector {
 
   const Vector({required this.dimensions, required this.values});
 
-  bool equalityComparator(Object other);
+  bool equalityComparator(Object other) {
+    if (other is! Vector) {
+      return false;
+    } else {
+      if (other.dimensions != dimensions) {
+        return false;
+      } else {
+        if (!IterableEquality().equals(values, other.values)) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
 
   @override
   bool operator ==(Object other) => equalityComparator(other);
