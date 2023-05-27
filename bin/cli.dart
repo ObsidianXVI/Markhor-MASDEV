@@ -100,7 +100,8 @@ class $resourceManName extends ResourceManager {
 """);
 
   final File resourceConfigsFile =
-      await File("$rootPath/resources/resource_configs/resource_configs.dart");
+      await File("$rootPath/resources/resource_configs/resource_configs.dart")
+          .create(recursive: true);
   resourceConfigsFile.writeAsString("""
 $fileHeader
 

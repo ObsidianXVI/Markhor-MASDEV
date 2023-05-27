@@ -6,10 +6,12 @@ abstract class DevelopmentEnv extends Environment {
     required super.stateSpace,
     required super.paramSpace,
     required super.runConfigs,
+    required super.enableDynamicQValueInitialiser,
     super.networkConfigs,
     super.resourceConfigs,
     super.resourceManager,
     super.observatory,
     super.dataStore,
+    super.qTableInitialiser,
   });
 }
