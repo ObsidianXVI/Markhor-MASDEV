@@ -53,8 +53,16 @@ abstract class Environment extends MarkhorComponent {
     if (qTable.containsKey(qVector)) {
       return qTable[qVector]!;
     } else if (enableDynamicQValueInitialiser) {
-      qTable[qVector] = 0;
-      return 0;
+      final double qVectVal;
+      if (qVector is QVector3D) {
+        final bool argIsCompat =
+            qVector.action.isCompatibleWithArgSet(qVector.argSet);
+        qVectVal = argIsCompat ? 0 : -1;
+      } else {
+        qVectVal = 0;
+      }
+      qTable[qVector] = qVectVal;
+      return qVectVal;
     } else {
       throw "No QValue found for ${qVector.toVectorStr()}. Try enabling 'dynamicQValueInitialiser'";
     }

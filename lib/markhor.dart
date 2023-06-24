@@ -39,3 +39,4 @@ part 'observatory/logger/logpoint.dart';
 part 'observatory/dopesheet/dopesheet.dart';
 part 'observatory/timeline/timeline.dart';
 part 'observatory/env_report.dart';
+part './observatory/utils/extensions.dart';

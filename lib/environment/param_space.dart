@@ -27,6 +27,11 @@ abstract class ArgSet extends Vector {
             .replaceAll("$argSetName.", '')
             .replaceAll('")', ''))
         .toList();
-    return "$argSetName<$constructors>";
+    return "$argSetName<${values.first}>";
+  }
+
+  @override
+  bool equalityComparator(Object other) {
+    return (other is ArgSet) && (other.runtimeType == runtimeType);
   }
 }

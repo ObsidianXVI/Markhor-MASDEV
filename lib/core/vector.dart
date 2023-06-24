@@ -39,4 +39,7 @@ abstract class Vector {
     final String instanceName = classMirror.reflectedType.toString();
     return "$instanceName<${vals.join()}>";
   }
+
+  @override
+  String toString() => toVectorStr();
 }

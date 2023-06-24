@@ -4,42 +4,28 @@ class Timeline extends ObservatoryClient {
   final TimelineConfigs timelineConfigs;
   final StreamController<int> _streamController = StreamController();
   late Stream<int> eventStream = _streamController.stream;
-  final Map<String, List> csvData = {
-    'timeStep': [],
-    'argSetIndex': [],
-    'state_memoryTokens': [],
-    'state_ingredientTokens': [],
-    'temporalDifference': [],
-    'reward': [],
-  };
+  final Map<String, List> csvData;
 
-  Timeline({required this.timelineConfigs});
+  Timeline({required this.timelineConfigs})
+      : csvData = <String, List>{
+          for (String key in timelineConfigs.monitoredAttr.keys) key: []
+        };
 
   @override
   void onEvent(EnvReport envReport) {
-    if (timelineConfigs.liveReport) {
-      print(
-        """
-${envReport.timeStep} | ${envReport.actionResult.previouState}
-    preA: ${envReport.previousAction}
-    preP: ${envReport.actionResult.argSetUsed}
-    slQV: ${envReport.selectedQVector.toVectorStr()}
-      oVal: ${envReport.oldQValueOfSelectedQVect}
-      nVal: ${envReport.newQValueOfSelectedQVect}
-      rand: ${envReport.isRandom}
-    obtR: ${envReport.rewardObtained}
-""",
-      );
+    final List<String> logs = [];
+    for (String key in csvData.keys) {
+      final dynamic accessValue =
+          timelineConfigs.monitoredAttr[key]!(envReport);
+      csvData[key]!.add(accessValue);
+      logs.add("    $key: $accessValue");
     }
-    csvData['timeStep']?.add(envReport.timeStep);
-    csvData['argSetIndex']?.add(envReport.actionResult.argSetUsed.values.first);
-    csvData['state_memoryTokens']
-        ?.add(envReport.actionResult.previouState.values[0]);
-    csvData['state_ingredientTokens']
-        ?.add(envReport.actionResult.previouState.values[1]);
-    csvData['temporalDifference']?.add(envReport.newQValueOfSelectedQVect -
-        envReport.oldQValueOfSelectedQVect);
-    csvData['reward']?.add(envReport.rewardObtained);
+    if (timelineConfigs.liveReport) {
+      print("""
+${envReport.timeStep} | ${envReport.actionResult.newState}
+  ${logs.join('\n  ')}
+""");
+    }
   }
 
   Future<String> exportCSV(String testName, [String? directory]) async {
@@ -64,8 +50,10 @@ ${envReport.timeStep} | ${envReport.actionResult.previouState}
 
 class TimelineConfigs {
   final bool liveReport;
+  final Map<String, dynamic Function(EnvReport)> monitoredAttr;
 
   TimelineConfigs({
+    required this.monitoredAttr,
     this.liveReport = false,
   });
 }
