@@ -19,6 +19,8 @@ abstract class QLAgent extends Agent {
     ActionResult actionResult;
     for (; currentEpoch < runConfigs.epochs; currentEpoch++) {
       for (; currentEpisode < runConfigs.episodes; currentEpisode++) {
+        if (runConfigs.maxTimesteps != null &&
+            runConfigs.maxTimesteps == timeStep) return;
         actionResult = perform(initialState);
         currentState = actionResult.newState;
         try {

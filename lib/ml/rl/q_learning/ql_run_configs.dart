@@ -7,6 +7,7 @@ class QLRunConfigs extends RunConfigs {
   final double epsilonValue;
   final int episodes;
   final int epochs;
+  final int? maxTimesteps;
 
   QLRunConfigs({
     required this.learningRate,
@@ -15,6 +16,7 @@ class QLRunConfigs extends RunConfigs {
     required this.epsilonValue,
     required this.episodes,
     required this.epochs,
+    this.maxTimesteps,
     super.timestepPause,
   });
 }

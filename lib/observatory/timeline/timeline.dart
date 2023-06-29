@@ -8,8 +8,15 @@ class Timeline extends ObservatoryClient {
 
   Timeline({required this.timelineConfigs})
       : csvData = <String, List>{
+          'timeStep': [],
           for (String key in timelineConfigs.monitoredAttr.keys) key: []
-        };
+        } {
+    timelineConfigs.monitoredAttr.addAll({
+      'timeStep': (EnvReport envReport) {
+        return envReport.timeStep;
+      },
+    });
+  }
 
   @override
   void onEvent(EnvReport envReport) {
@@ -29,19 +36,20 @@ ${envReport.timeStep} | ${envReport.actionResult.newState}
   }
 
   Future<String> exportCSV(String testName, [String? directory]) async {
+    const String delimiter = ';';
     directory ??= './data';
     await Directory(directory).create();
     final File dataFile = await File("$directory/$testName.csv").create();
     final List<String> headers = csvData.keys.toList();
     final int rowCount = csvData['timeStep']!.length;
     final List<String> data = [];
-    data.add(headers.join(','));
+    data.add(headers.join(delimiter));
     for (int i = 0; i < rowCount; i++) {
       final List rowData = [];
       for (String header in headers) {
         rowData.add(csvData[header]![i]);
       }
-      data.add(rowData.join(','));
+      data.add(rowData.join(delimiter));
     }
     dataFile.writeAsString(data.join('\n'));
     return dataFile.path;
