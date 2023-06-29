@@ -27,7 +27,7 @@ abstract class ArgSet extends Vector {
             .replaceAll("$argSetName.", '')
             .replaceAll('")', ''))
         .toList();
-    return "$argSetName<${values.first}>";
+    return "$argSetName<${values.isNotEmpty ? values.first : ''}>";
   }
 
   @override

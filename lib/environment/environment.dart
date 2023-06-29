@@ -39,6 +39,14 @@ abstract class Environment extends MarkhorComponent {
     }
   }
 
+  Future<void> advanceEpisode(QLAgent qlAgent) async {
+    for (EpisodeEndHook endHook in hooks.whereType<EpisodeEndHook>()) {
+      if (endHook.asyncBody != null) await endHook.asyncBody!(this, qlAgent);
+      if (endHook.body != null) endHook.body!(this, qlAgent);
+      if (endHook.pause != null) await Future.delayed(endHook.pause!);
+    }
+  }
+
   GlobalState? get globalState;
 
   void addHook(Hook hook) => hooks.add(hook);

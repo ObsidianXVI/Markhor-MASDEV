@@ -12,8 +12,9 @@ class TimestepHook extends Hook {
 }
 
 class EpisodeEndHook extends Hook {
-  final void Function(Environment)? body;
-  final Future<void> Function(Environment)? asyncBody;
+  final void Function(Environment, QLAgent)? body;
+  final Future<void> Function(Environment, QLAgent)? asyncBody;
+  final Duration? pause;
 
-  EpisodeEndHook({required super.env, this.body, this.asyncBody});
+  EpisodeEndHook({required super.env, this.body, this.asyncBody, this.pause});
 }

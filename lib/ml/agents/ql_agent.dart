@@ -19,14 +19,18 @@ abstract class QLAgent extends Agent {
     ActionResult actionResult;
     for (; currentEpoch < runConfigs.epochs; currentEpoch++) {
       for (; currentEpisode < runConfigs.episodes; currentEpisode++) {
-        if (runConfigs.maxTimesteps != null &&
-            runConfigs.maxTimesteps == timeStep) return;
+        print('starting ep $currentEpisode');
+        timeStep = 0;
         actionResult = perform(initialState);
         currentState = actionResult.newState;
         try {
-          while (true) {
+          while (runConfigs.maxTimesteps != null &&
+              runConfigs.maxTimesteps! > timeStep) {
+            print('inside loop');
             await Future.delayed(runConfigs.timestepPause ?? Duration.zero, () {
+              print('about to perform');
               actionResult = perform(currentState);
+              print('performed');
               currentState = actionResult.newState;
               timeStep++;
               env.advance(
@@ -41,14 +45,11 @@ abstract class QLAgent extends Agent {
           }
         } on MarkhorException catch (e) {
           if (e is TerminalStateException) {
-            for (EpisodeEndHook hook in env.hooks.whereType<EpisodeEndHook>()) {
-              hook.body?.call(env);
-              if (hook.asyncBody != null) await hook.asyncBody!.call(env);
-            }
             env.reset();
             continue;
           }
         }
+        await env.advanceEpisode(this);
       }
     }
   }

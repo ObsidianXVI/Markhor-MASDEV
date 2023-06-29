@@ -11,6 +11,18 @@ class Timeline extends ObservatoryClient {
           'timeStep': [],
           for (String key in timelineConfigs.monitoredAttr.keys) key: []
         } {
+    init();
+  }
+
+  void resetAndReinitialise() {
+    csvData.clear();
+    csvData.addAll(<String, List>{
+      'timeStep': [],
+      for (String key in timelineConfigs.monitoredAttr.keys) key: []
+    });
+  }
+
+  void init() {
     timelineConfigs.monitoredAttr.addAll({
       'timeStep': (EnvReport envReport) {
         return envReport.timeStep;
@@ -35,11 +47,13 @@ ${envReport.timeStep} | ${envReport.actionResult.newState}
     }
   }
 
-  Future<String> exportCSV(String testName, [String? directory]) async {
+  Future<String> exportCSV(String suffix, [String? directory]) async {
     const String delimiter = ';';
     directory ??= './data';
     await Directory(directory).create();
-    final File dataFile = await File("$directory/$testName.csv").create();
+    final File dataFile =
+        await File("$directory/${timelineConfigs.testName}$suffix.csv")
+            .create();
     final List<String> headers = csvData.keys.toList();
     final int rowCount = csvData['timeStep']!.length;
     final List<String> data = [];
@@ -58,9 +72,11 @@ ${envReport.timeStep} | ${envReport.actionResult.newState}
 
 class TimelineConfigs {
   final bool liveReport;
+  final String testName;
   final Map<String, dynamic Function(EnvReport)> monitoredAttr;
 
   TimelineConfigs({
+    required this.testName,
     required this.monitoredAttr,
     this.liveReport = false,
   });
